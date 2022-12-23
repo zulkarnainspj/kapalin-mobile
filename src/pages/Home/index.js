@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, StatusBar } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import ScheduleList from '../../components/ScheduleList'
+import ShipList from '../../components/ShipList'
 import { ScrollView } from 'react-native-gesture-handler'
 import axios from 'axios'
 
@@ -34,7 +34,10 @@ const Home = ({navigation}) => {
         <Text>Daftar Kapal</Text>
         <View style={{ height: .8, backgroundColor: '#636e72', marginTop: 10, width: 50 }}></View>
         {data && data.map((item, i) => {
-          return <ScheduleList key={i} title={item.name} />
+          return <ShipList onPress={() => navigation.navigate('Jadwal', {
+            'shipID' : item.id,
+            'shipName' : item.name
+          })} key={i} title={item.name} />
         })}
       </View>
     </ScrollView>

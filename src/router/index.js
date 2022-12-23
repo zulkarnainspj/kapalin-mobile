@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Splash, Home, Pesanan, Akun } from '../pages';
+import { Jadwal, Splash, Beranda, Pesanan, Akun } from '../pages';
 import { BottomNavigator } from '../components';
 import { navAkun, navAkunActive, navPesanan, navPesananActive, navHome, navHomeActive } from '../assets/icon'
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -17,7 +17,7 @@ const MainApp = () => {
       headerShown: false,
       tabBarActiveTintColor:"#0984e3"
     }}>
-      <Tab.Screen name="Home" component={Home} options={{
+      <Tab.Screen name="Beranda" component={Beranda} options={{
         tabBarIcon: ({ color }) => (
           <View style={{  }}>
             <Icon name="home" size={30} color={color} />
@@ -49,6 +49,7 @@ const Router = () => {
     >
       <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
       <Stack.Screen name="MainApp" component={MainApp} options={{ headerShown: false }} />
+      <Stack.Screen name="Jadwal" component={Jadwal} options={{  }} />
     </Stack.Navigator>
   )
 }

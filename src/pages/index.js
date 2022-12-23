@@ -1,6 +1,7 @@
 import Splash from "./Splash";
-import Home from "./Home";
+import Beranda from "./Home";
 import Pesanan from "./Pesanan";
 import Akun from "./Akun";
+import Jadwal from './Jadwal';
 
-export { Splash, Home, Pesanan, Akun }
+export { Splash, Beranda, Pesanan, Akun, Jadwal }
