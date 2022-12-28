@@ -9,7 +9,7 @@ const Home = ({navigation}) => {
 
   const getData = async () => {
     try {
-      const res = await axios.get('http://192.168.31.23:8000/api/ship');
+      const res = await axios.get('http://172.16.2.206:8000/api/ship'); 
 
       setData(res.data.ships);
     } catch (error) {
