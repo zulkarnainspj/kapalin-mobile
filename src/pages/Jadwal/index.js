@@ -4,13 +4,20 @@ import ScheduleList from '../../components/ScheduleList'
 import { ScrollView } from 'react-native-gesture-handler'
 import axios from 'axios'
 import { format } from 'date-fns'
+import ApiManager from '../../api/ApiManager'
 
 const Schedule = ({ route, navigation }, props) => {
     const [data, setData] = useState()
 
     const getData = async () => {
         try {
-            const res = await axios.get('http://172.16.2.206:8000/api/ship/'+ route.params.shipID);
+            const res = await ApiManager("/ship/" + route.params.shipID, {
+                method: 'GET',
+                headers: {
+                    'content-type': "application/json"
+                },
+                data: data
+            }); 
 
             setData(res.data.schedule);
         } catch (error) {

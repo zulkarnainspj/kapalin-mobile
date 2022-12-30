@@ -3,13 +3,20 @@ import React, { useEffect, useState } from 'react'
 import ShipList from '../../components/ShipList'
 import { ScrollView } from 'react-native-gesture-handler'
 import axios from 'axios'
+import ApiManager from '../../api/ApiManager'
 
 const Home = ({navigation}) => {
   const [data, setData] = useState()
 
   const getData = async () => {
     try {
-      const res = await axios.get('http://172.16.2.206:8000/api/ship'); 
+      const res = await ApiManager("/ship", {
+        method: 'GET',
+        headers: {
+          'content-type': "application/json"
+        },
+        data: data
+      }); 
 
       setData(res.data.ships);
     } catch (error) {
