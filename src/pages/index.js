@@ -4,5 +4,6 @@ import Pesanan from "./Pesanan";
 import Akun from "./Akun";
 import Jadwal from './Jadwal';
 import Login from './Login';
+import Register from './Register';
 
-export { Splash, Beranda, Pesanan, Akun, Jadwal, Login}
+export { Splash, Beranda, Pesanan, Akun, Jadwal, Login, Register}

@@ -3,7 +3,7 @@ import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Jadwal, Splash, Beranda, Pesanan, Akun, Login } from '../pages';
+import { Jadwal, Splash, Beranda, Pesanan, Akun, Login, Register } from '../pages';
 import { BottomNavigator } from '../components';
 import { navAkun, navAkunActive, navPesanan, navPesananActive, navHome, navHomeActive } from '../assets/icon'
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -59,6 +59,7 @@ const Router = () => {
         <Stack.Screen name="MainApp" component={MainApp} options={{ headerShown: false }} />
         <Stack.Screen name="Jadwal" component={Jadwal} options={{}} />
         <Stack.Screen name="Login" component={Login} options={{}} />
+        <Stack.Screen name="Daftar" component={Register} options={{}} />
 
     </Stack.Navigator>
   )
