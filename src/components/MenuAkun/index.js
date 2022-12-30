@@ -7,9 +7,9 @@ const MenuAkun = (props) => {
     return (
         <TouchableOpacity onPress={props.onPress} style={{ flexDirection: 'row', marginTop: 1, paddingHorizontal: 20, backgroundColor: '#ffffff', paddingVertical: 20, flex: 1 }}>
             <View style={{ flex: 1 }}>
-                <Text style={{ fontSize: 20 }}>{props.title}</Text>
+                <Text style={{ fontSize: 20, color:props.color }}>{props.title}</Text>
             </View>
-            <Icon name="angle-right" size={30} color="#0984e3" />
+            <Icon name="angle-right" size={30} color={ props.color == 'red' ? 'red' : '#0984e3'  } />
         </TouchableOpacity>
     )
 }

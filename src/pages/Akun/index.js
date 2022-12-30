@@ -1,10 +1,30 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, ScrollView } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import MenuAkun from '../../components/MenuAkun'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Akun = ({navigation}) => {
+  const [auth, setAuth] = useState(false);
+
+  useEffect(() => {
+    getToken();
+  }, []);
+
+  const getToken = async () => {
+    const dataToken = await AsyncStorage.getItem("userToken");
+
+    if (dataToken){
+      setAuth(true);
+    }
+  }
+
+  const LogOut = () => {
+    AsyncStorage.removeItem("userToken");
+    navigation.replace("MainApp");
+  }
+  
   return (
     <View style={styles.container}>
       <View style={{ marginHorizontal: 20, marginBottom:20}}>
@@ -14,7 +34,11 @@ const Akun = ({navigation}) => {
 
       <ScrollView style={{ }} showsVerticalScrollIndicator={false}>
         <MenuAkun title={"Data Pemesan"} />
-        <MenuAkun title={"Login"} onPress={() => navigation.navigate('Login')} />
+        {!auth ? (
+          <MenuAkun title={"Login"} onPress={() => navigation.navigate('Login')} />
+        ) : (
+          <MenuAkun color={'red'} title={"Logout"} onPress={() => LogOut()} />
+        ) }
       </ScrollView>
     </View>
   )

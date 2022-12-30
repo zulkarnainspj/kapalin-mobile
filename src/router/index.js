@@ -1,5 +1,5 @@
-import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import React, { useContext } from 'react'
+import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -7,7 +7,7 @@ import { Jadwal, Splash, Beranda, Pesanan, Akun, Login } from '../pages';
 import { BottomNavigator } from '../components';
 import { navAkun, navAkunActive, navPesanan, navPesananActive, navHome, navHomeActive } from '../assets/icon'
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { AuthProvider } from '../context/AuthContext';
+import { AuthContext, AuthProvider } from '../context/AuthContext';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -44,17 +44,23 @@ const MainApp = () => {
 }
 
 const Router = () => {
+  // if (isLoading) {
+  //   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  //     <ActivityIndicator size={'large'} />
+  //   </View>
+  // }
+
   return (
-    <AuthProvider>
-      <Stack.Navigator
-        initialRouteName="Splash"
-      >
+    <Stack.Navigator
+      initialRouteName="Splash"
+    >
+
         <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
         <Stack.Screen name="MainApp" component={MainApp} options={{ headerShown: false }} />
         <Stack.Screen name="Jadwal" component={Jadwal} options={{}} />
-        <Stack.Screen name="Login" component={Login} options={{  }} />
-      </Stack.Navigator>
-    </AuthProvider>
+        <Stack.Screen name="Login" component={Login} options={{}} />
+
+    </Stack.Navigator>
   )
 }
 
