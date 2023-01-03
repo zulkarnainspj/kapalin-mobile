@@ -4,13 +4,11 @@ import { FlatList, ScrollView } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import MenuAkun from '../../components/MenuAkun'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useIsFocused } from '@react-navigation/native';
 
 const Akun = ({navigation}) => {
   const [auth, setAuth] = useState(false);
-
-  useEffect(() => {
-    getToken();
-  }, []);
+  const isFocused = useIsFocused();
 
   const getToken = async () => {
     const dataToken = await AsyncStorage.getItem("userToken");
@@ -19,6 +17,10 @@ const Akun = ({navigation}) => {
       setAuth(true);
     }
   }
+
+  useEffect(() => {
+    getToken();
+  }, [isFocused]);
 
   const LogOut = () => {
     AsyncStorage.removeItem("userToken");

@@ -8,7 +8,7 @@ export const LoginApi = async data => {
                 'content-type':"application/json"
             },
             data:data
-        })
+        })        
 
         return result;
     }catch (error){

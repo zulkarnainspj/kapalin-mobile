@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Jadwal, Splash, Beranda, Pesanan, Akun, Login, Register } from '../pages';
@@ -11,6 +10,7 @@ import { AuthContext, AuthProvider } from '../context/AuthContext';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
 
 const MainApp = () => {
   return (

@@ -4,9 +4,11 @@ import ShipList from '../../components/ShipList'
 import { ScrollView } from 'react-native-gesture-handler'
 import axios from 'axios'
 import ApiManager from '../../api/ApiManager'
+import { useIsFocused } from '@react-navigation/native';
 
 const Home = ({navigation}) => {
-  const [data, setData] = useState()
+  const [data, setData] = useState();
+  const isFocused = useIsFocused();
 
   const getData = async () => {
     try {
@@ -26,7 +28,11 @@ const Home = ({navigation}) => {
 
   useEffect(() => {
     getData();
-  }, [])
+  }, [isFocused])  
+
+  // if (isFocused){
+  //   getData();
+  // }
 
   return (
     <ScrollView style={{ marginTop: 50, marginHorizontal: 15 }} showsVerticalScrollIndicator={false}>
@@ -45,10 +51,9 @@ const Home = ({navigation}) => {
             'shipID' : item.id,
             'shipName' : item.name
           })} key={i} title={item.name} />
-        })}
+        })}        
       </View>
     </ScrollView>
-    
   )
 }
 

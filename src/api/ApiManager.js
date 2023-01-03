@@ -1,9 +1,9 @@
  import axios from "axios";
 
  const ApiManager = axios.create({
-     baseURL: 'http://172.16.2.195:8000/api/',
+     baseURL: 'https://kapalin.zulkarnainspj.my.id/api/',
      responseType: 'json',
-     withCredentials: true,
+    //  withCredentials: true,
  });
 
  export default ApiManager;

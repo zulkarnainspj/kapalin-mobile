@@ -1,13 +1,18 @@
-import { StyleSheet, Text, View, StatusBar } from 'react-native'
+import { StyleSheet, Text, View, StatusBar, ToastAndroid } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import ScheduleList from '../../components/ScheduleList'
 import { ScrollView } from 'react-native-gesture-handler'
 import axios from 'axios'
 import { format } from 'date-fns'
 import ApiManager from '../../api/ApiManager'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { CheckAuth } from '../../context/CheckAuth'
 
 const Schedule = ({ route, navigation }, props) => {
     const [data, setData] = useState()
+    const [auth, setAuth] = useState(false);
+    const [userName, setUserName] = useState(null);
+    const [userEmail, setUserEmail] = useState(null);
 
     const getData = async () => {
         try {
@@ -25,11 +30,31 @@ const Schedule = ({ route, navigation }, props) => {
         }
     }
 
+    const getToken = async () => {
+        const dataToken = await AsyncStorage.getItem("userToken");
+        const dataName = await AsyncStorage.getItem("userName");
+        const dataEmail = await AsyncStorage.getItem("userEmail");
+
+        if (dataToken) {
+            setAuth(true);
+
+            setUserName(dataName);
+            setUserEmail(dataEmail);
+        }
+    }
+
     useEffect(() => {
         getData();
+        getToken();
     }, [])
 
-    
+    const Orders = (routes, date, ship) => {        
+        if (!auth) {
+            ToastAndroid.show("Kamu belum Login!", ToastAndroid.SHORT);
+        }else{
+            console.log(userName + "|" + userEmail + "|" + ship);
+        }
+    }
 
     return (
         <ScrollView style={{ marginTop: 15, marginHorizontal: 15 }} showsVerticalScrollIndicator={false}>
@@ -48,6 +73,7 @@ const Schedule = ({ route, navigation }, props) => {
                         title={item.route.port.name + ' - ' + item.route.next_port.name} 
                         date={format(date, "d MMMM y H:mm")}
                         price={item.price}
+                        onPress={() => Orders(item.route.port.name + ' - ' + item.route.next_port.name, format(date, "d MMMM y H:mm"), route.params.shipName)}
                     />
                 })}
             </View>

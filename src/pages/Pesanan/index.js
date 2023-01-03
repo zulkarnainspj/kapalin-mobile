@@ -3,8 +3,15 @@ import React, { useEffect } from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 import DaftarPesanan from '../../components/DaftarPesanan'
 import axios from 'axios'
+import { useIsFocused } from '@react-navigation/native';
 
 const Pesanan = () => {
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    
+  }, [isFocused]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Pesanan</Text>
