@@ -48,11 +48,18 @@ const Schedule = ({ route, navigation }, props) => {
         getToken();
     }, [])
 
-    const Orders = (routes, date, ship) => {        
+    const Orders = (routes, date, ship, scheduleID) => {        
         if (!auth) {
             ToastAndroid.show("Kamu belum Login!", ToastAndroid.SHORT);
         }else{
-            console.log(userName + "|" + userEmail + "|" + ship);
+            navigation.navigate("Pesan", {
+                userName:userName,
+                userEmail:userEmail,
+                ship:ship,
+                routes:routes,
+                date:date,
+                scheduleID:scheduleID,
+            });
         }
     }
 
@@ -73,7 +80,7 @@ const Schedule = ({ route, navigation }, props) => {
                         title={item.route.port.name + ' - ' + item.route.next_port.name} 
                         date={format(date, "d MMMM y H:mm")}
                         price={item.price}
-                        onPress={() => Orders(item.route.port.name + ' - ' + item.route.next_port.name, format(date, "d MMMM y H:mm"), route.params.shipName)}
+                        onPress={() => Orders(item.route.port.name + ' - ' + item.route.next_port.name, format(date, "d MMMM y H:mm"), route.params.shipName, item.id)}
                     />
                 })}
             </View>
