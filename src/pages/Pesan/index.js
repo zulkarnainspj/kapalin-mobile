@@ -1,4 +1,4 @@
-import { Button, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Button, SafeAreaView, StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 import axios from 'axios'
@@ -9,29 +9,11 @@ import NumericInput from 'react-native-numeric-input'
 const Pesan = ({ route, navigation }) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [penumpang, setPenumpang] = useState();       
-
-    // const LoginHandle = () => {
-    //     LoginApi({
-    //         email: email,
-    //         password: password,
-    //     }).then((result) => {
-    //         if (result.status == 200) {
-    //             AsyncStorage.setItem("userToken", result.data.token);
-    //             AsyncStorage.setItem("userName", result.data.user.name);
-    //             AsyncStorage.setItem("userEmail", result.data.user.email);
-    //             navigation.replace('MainApp');
-    //         } else {
-    //             alert(result.message);
-    //         }
-    //     }).catch(error => {
-    //         alert(error);
-    //     })
-    // }    
+    const [penumpang, setPenumpang] = useState();          
 
     const order = () => {
         if (penumpang > 0){
-            navigation.navigate("DataPenumpang", {
+            navigation.navigate("Data Penumpang", {
                 userName: route.params.userName,
                 userEmail: route.params.userEmail,
                 ship: route.params.ship,
@@ -40,13 +22,13 @@ const Pesan = ({ route, navigation }) => {
                 scheduleID: route.params.scheduleID,
                 jumlahPenumpang:penumpang,
             });
+        }else{
+            ToastAndroid.show("Masukkan Jumlah Penumpang!", ToastAndroid.SHORT)
         }
     }
 
     return (
         <View style={styles.container}>
-            {/* <Text style={styles.title}>Login</Text>
-            <View style={styles.divider}></View> */}
             <ScrollView style={{ marginBottom: 50 }} showsVerticalScrollIndicator={false}>
                 <SafeAreaView style={{ marginVertical: 20 }}>
                     <View>

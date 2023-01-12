@@ -15,12 +15,14 @@ const Akun = ({navigation}) => {
 
     if (dataToken){
       setAuth(true);
+    }else{
+      setAuth(false);
     }
   }
 
   useEffect(() => {
     getToken();
-  }, [isFocused]);
+  }, [isFocused]); 
 
   const LogOut = () => {
     AsyncStorage.removeItem("userToken");

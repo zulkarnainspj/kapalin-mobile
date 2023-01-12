@@ -1,14 +1,24 @@
-import { StyleSheet, Text, View, StatusBar } from 'react-native'
+import { StyleSheet, Text, View, StatusBar, ToastAndroid } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import ShipList from '../../components/ShipList'
 import { ScrollView } from 'react-native-gesture-handler'
 import axios from 'axios'
 import ApiManager from '../../api/ApiManager'
 import { useIsFocused } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Home = ({navigation}) => {
   const [data, setData] = useState();
+  const [token, setToken] = useState();
   const isFocused = useIsFocused();
+
+  const getToken = async () => {
+    const dataToken = await AsyncStorage.getItem("userToken");
+
+    if (dataToken) {
+      setToken(dataToken);
+    }
+  }
 
   const getData = async () => {
     try {
@@ -16,8 +26,7 @@ const Home = ({navigation}) => {
         method: 'GET',
         headers: {
           'content-type': "application/json"
-        },
-        data: data
+        }
       }); 
 
       setData(res.data.ships);
@@ -26,8 +35,31 @@ const Home = ({navigation}) => {
     }
   }
 
+  const checkAuth = async () => {
+    try {
+      const res = await ApiManager("/check", {
+        method: 'GET',
+        headers: {
+          'content-type': "application/json",
+          'Authorization': "Bearer " + token
+        }
+      });
+    } catch (error) {
+      if (token){
+        ToastAndroid.show("Akunmu telah keluar, silahkan login ulang", ToastAndroid.SHORT);
+        AsyncStorage.removeItem("userToken");
+        setToken("");
+        // navigation.replace("MainApp");
+      }
+    }
+  }
+
   useEffect(() => {
+    getToken();
     getData();
+    if (token) {
+      checkAuth();
+    }
   }, [isFocused])  
 
   // if (isFocused){
