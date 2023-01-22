@@ -50,7 +50,7 @@ const Pesan = ({ route, navigation }) => {
                         <Text style={{ marginBottom: 5, fontSize: 20 }}>Jumlah Penumpang</Text>
                         <View style={{ justifyContent:'flex-start', flex:1, flexDirection:'row' }}>
                             {/* <Button onPress={plus()}>+</Button> */}                            
-                            <NumericInput editable={false} onChange={value => setPenumpang(value)} maxValue={5} minValue={0} style={{ padding: 10, width: 50, borderWidth: 1, borderColor: '#0984e3', fontSize: 17, borderRadius: 5, color: 'black' }} />                            
+                            <NumericInput editable={false} onChange={value => setPenumpang(value)} maxValue={5} minValue={1} style={{ padding: 10, width: 50, borderWidth: 1, borderColor: '#0984e3', fontSize: 17, borderRadius: 5, color: 'black' }} />                            
                         </View>
                     </View>
             
