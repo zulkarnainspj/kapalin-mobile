@@ -86,7 +86,7 @@ const Login = ({ navigation }) => {
 
                     <View style={{ flexDirection: 'row', marginTop: 50, justifyContent: 'center', flex: 1 }}>
                         <Text>Sudah punya akun? </Text>
-                        <Text style={{ color: '#0984e3' }} >LOGIN</Text>
+                        <Text style={{ color: '#0984e3' }} onPress={() => navigation.navigate('Login') }>LOGIN</Text>
                     </View>
                 </SafeAreaView>
             </ScrollView>

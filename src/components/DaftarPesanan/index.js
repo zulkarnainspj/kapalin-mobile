@@ -1,7 +1,23 @@
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
 const DaftarPesanan = (props) => {
+    let ticket_status = "";
+    let status_color = "";
+
+    if (props.status == "1"){
+        ticket_status = "Dipesan";
+        status_color = "#3498db";
+    } else if (props.status == "2") {
+        ticket_status = "Checkin";
+        status_color = "#f39c12";
+    } else if (props.status == "3") {
+        ticket_status = "Selesai";
+        status_color = "#2ecc71";
+    } else if (props.status == "0") {
+        ticket_status = "Batal";
+        status_color = "#e74c3c";
+    }
   return (
       <TouchableOpacity style={styles.item}>
           <View style={{}}>
@@ -9,8 +25,9 @@ const DaftarPesanan = (props) => {
               <Text style={styles.route}>{props.route}</Text>
               <Text style={styles.date}>{props.date}</Text>
           </View>
-          <View style={{ padding: 10, borderRadius: 20, height: 40, backgroundColor: "#00b894", marginTop: 7 }}>
-              <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#f5f6fa' }}>{props.status}</Text>
+          <View style={{ padding: 10, borderRadius: 20, height: 40, backgroundColor: status_color, marginTop: 7 }}>
+
+                <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#f5f6fa' }}>{ticket_status}</Text>
           </View>
       </TouchableOpacity>
   )
