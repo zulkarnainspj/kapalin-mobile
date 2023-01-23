@@ -48,7 +48,8 @@ const Schedule = ({ route, navigation }, props) => {
         getToken();
     }, [])
 
-    const Orders = (routes, date, ship, scheduleID) => {        
+    const Orders = (routes, date, ship, scheduleID) => { 
+        getData();       
         if (!auth) {
             ToastAndroid.show("Kamu belum Login!", ToastAndroid.SHORT);
         }else{

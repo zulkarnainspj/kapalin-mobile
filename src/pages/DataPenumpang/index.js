@@ -12,7 +12,12 @@ const DataPenumpang = ({ route, navigation }) => {
     return (
         <WebView 
             source={{ uri: 'https://kapalin.zulkarnainspj.my.id/cus/order/' + route.params.jumlahPenumpang + '/' + route.params.userEmail + '/' + route.params.scheduleID }} 
-            onError={err => onError(err)} />
+            onLoad={(event) => {
+                navigation.setOptions({
+                    headerTitle: event.nativeEvent.title, // get webpage title 
+                });
+            }}
+            onError={err => onError(err)} /> 
     )
 
 }
