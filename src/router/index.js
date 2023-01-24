@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -13,6 +13,19 @@ const Tab = createBottomTabNavigator();
 
 
 const MainApp = () => {
+  const [email, setEmail] = useState();
+  const [token, setToken] = useState();
+
+  const getToken = async () => {
+    const dataToken = await AsyncStorage.getItem("userToken");
+    const dataEmail = await AsyncStorage.getItem("userEmail");
+
+    if (dataToken) {
+      setEmail(dataEmail);
+      setToken(dataToken);
+    }
+  }
+
   return (
     <Tab.Navigator screenOptions={{
       headerShown: false,

@@ -4,7 +4,6 @@ import ApiManager from "./ApiManager";
 
 // const [token, setToken] = useState();
 export const OrderApi = async data => {
-
     try{
         const result = await ApiManager("/order", {
             method:'POST',

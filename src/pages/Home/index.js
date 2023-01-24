@@ -35,31 +35,31 @@ const Home = ({navigation}) => {
     }
   }
 
-  const checkAuth = async () => {
-    try {
-      const res = await ApiManager("/check", {
-        method: 'GET',
-        headers: {
-          'content-type': "application/json",
-          'Authorization': "Bearer " + token
-        }
-      });
-    } catch (error) {
-      if (token){
-        ToastAndroid.show("Akunmu telah keluar, silahkan login ulang", ToastAndroid.SHORT);
-        AsyncStorage.removeItem("userToken");
-        setToken("");
-        // navigation.replace("MainApp");
-      }
-    }
-  }
+  // const checkAuth = async () => {
+  //   try {
+  //     const res = await ApiManager("/check", {
+  //       method: 'GET',
+  //       headers: {
+  //         'content-type': "application/json",
+  //         'Authorization': "Bearer " + token
+  //       }
+  //     });
+  //   } catch (error) {
+  //     if (token){
+  //       ToastAndroid.show("Akunmu telah keluar, silahkan login ulang", ToastAndroid.SHORT);
+  //       AsyncStorage.removeItem("userToken");
+  //       setToken("");
+  //       // navigation.replace("MainApp");
+  //     }
+  //   }
+  // }
 
   useEffect(() => {
     getToken();
     getData();
-    if (token) {
-      checkAuth();
-    }
+    // if (token) {
+    //   checkAuth();
+    // }
   }, [isFocused])  
 
   // if (isFocused){

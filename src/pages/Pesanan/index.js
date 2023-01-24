@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 import DaftarPesanan from '../../components/DaftarPesanan'
@@ -11,48 +11,44 @@ import { format } from 'date-fns'
 const Pesanan = ({ navigation }) => {
   const isFocused = useIsFocused();
   const [data, setData] = useState()
-  const [auth, setAuth] = useState(false);
-  const [userName, setUserName] = useState(null);
-  const [userEmail, setUserEmail] = useState(null);
+  const [auth, setAuth] = useState(true);
 
   const getData = async () => {
     try {
-      const res = await ApiManager("/transaction/" + userEmail, {
+      let email = await AsyncStorage.getItem('userEmail');
+      let token = await AsyncStorage.getItem("userToken");
+
+      const res = await ApiManager("/transaction/" + email, {
         method: 'GET',
         headers: {
-          'content-type': "application/json"
+          'content-type': "application/json",
+          'Authorization': 'Bearer ' + token
         },
         data: data
       });
 
       setData(res.data.tickets);
-    } catch (error) {
-      tryGetData();
-    }
-  }
-
-  const tryGetData = () => {
-    getData();
-  }
-
-  const getToken = async () => {
-    const dataToken = await AsyncStorage.getItem("userToken");
-    const dataName = await AsyncStorage.getItem("userName");
-    const dataEmail = await AsyncStorage.getItem("userEmail");
-
-    if (dataToken) {
-      setUserName(dataName);
-      setUserEmail(dataEmail);
-
       setAuth(true);
-    } else {
-      setAuth(false);
+    } catch (error) {
+      if (error.response.status == "401"){
+        setAuth(false);
+      }else{
+        ToastAndroid.show("Terjadi kesalahan saat mencoba terhubung ke Server", ToastAndroid.SHORT);
+      }
     }
   }
+
+  // const getToken = async () => {
+  //   const dataToken = await AsyncStorage.getItem("userToken");
+
+  //   if (dataToken) {
+  //     setAuth(true);
+  //   } else {
+  //     setAuth(false);
+  //   }
+  // }
 
   useEffect(() => {
-    getToken();
-
     getData();
 
   }, [isFocused])

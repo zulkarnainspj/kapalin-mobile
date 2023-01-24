@@ -13,6 +13,7 @@ const Schedule = ({ route, navigation }, props) => {
     const [auth, setAuth] = useState(false);
     const [userName, setUserName] = useState(null);
     const [userEmail, setUserEmail] = useState(null);
+    const [token, setToken] = useState();
 
     const getData = async () => {
         try {
@@ -22,7 +23,7 @@ const Schedule = ({ route, navigation }, props) => {
                     'content-type': "application/json"
                 },
                 data: data
-            }); 
+            });
 
             setData(res.data.schedule);
         } catch (error) {
@@ -40,6 +41,27 @@ const Schedule = ({ route, navigation }, props) => {
 
             setUserName(dataName);
             setUserEmail(dataEmail);
+            setToken(dataToken);
+        }
+    }
+
+    const checkAuth = async () => {
+        try {
+            const res = await ApiManager("/check", {
+                method: 'GET',
+                headers: {
+                    'content-type': "application/json",
+                    'Authorization': "Bearer " + token
+                }
+            });
+        } catch (error) {
+            if (error.response.status == "401") {
+                ToastAndroid.show("Akunmu telah keluar, silahkan login ulang", ToastAndroid.SHORT);
+                AsyncStorage.removeItem("userToken");
+                setToken("");
+                setAuth(false);
+                // navigation.replace("MainApp");
+            }
         }
     }
 
@@ -48,18 +70,18 @@ const Schedule = ({ route, navigation }, props) => {
         getToken();
     }, [])
 
-    const Orders = (routes, date, ship, scheduleID) => { 
-        getData();       
+    const Orders = (routes, date, ship, scheduleID) => {
+        checkAuth();
         if (!auth) {
             ToastAndroid.show("Kamu belum Login!", ToastAndroid.SHORT);
-        }else{
+        } else {
             navigation.navigate("Pesan", {
-                userName:userName,
-                userEmail:userEmail,
-                ship:ship,
-                routes:routes,
-                date:date,
-                scheduleID:scheduleID,
+                userName: userName,
+                userEmail: userEmail,
+                ship: ship,
+                routes: routes,
+                date: date,
+                scheduleID: scheduleID,
             });
         }
     }
@@ -76,9 +98,9 @@ const Schedule = ({ route, navigation }, props) => {
                 {data && data.map((item, i) => {
                     var date = new Date(item.etd);
 
-                    return <ScheduleList 
-                        key={i} 
-                        title={item.route.port.name + ' - ' + item.route.next_port.name} 
+                    return <ScheduleList
+                        key={i}
+                        title={item.route.port.name + ' - ' + item.route.next_port.name}
                         date={format(date, "d MMMM y H:mm")}
                         price={item.price}
                         onPress={() => Orders(item.route.port.name + ' - ' + item.route.next_port.name, format(date, "d MMMM y H:mm"), route.params.shipName, item.id)}
