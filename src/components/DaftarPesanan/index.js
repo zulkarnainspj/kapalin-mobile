@@ -19,7 +19,7 @@ const DaftarPesanan = (props) => {
         status_color = "#e74c3c";
     }
   return (
-      <TouchableOpacity style={styles.item}>
+      <TouchableOpacity style={styles.item} onPress={props.onPress}>
           <View style={{}}>
               <Text style={styles.itemTitle}>{props.title}</Text>
               <Text style={styles.route}>{props.route}</Text>

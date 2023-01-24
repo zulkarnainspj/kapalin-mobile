@@ -30,9 +30,9 @@ const Pesanan = ({ navigation }) => {
       setData(res.data.tickets);
       setAuth(true);
     } catch (error) {
-      if (error.response.status == "401"){
+      if (error.response.status == "401") {
         setAuth(false);
-      }else{
+      } else {
         ToastAndroid.show("Terjadi kesalahan saat mencoba terhubung ke Server", ToastAndroid.SHORT);
       }
     }
@@ -47,6 +47,8 @@ const Pesanan = ({ navigation }) => {
   //     setAuth(false);
   //   }
   // }
+
+
 
   useEffect(() => {
     getData();
@@ -63,13 +65,17 @@ const Pesanan = ({ navigation }) => {
             data && data.map((item, i) => {
               var date = new Date(item.created_at);
 
-              return <DaftarPesanan
-                key={i}
-                onPress={() => { console.log('halo') }}
-                title={item.ship}
-                route={item.port + ' - ' + item.next_port}
-                date={format(date, "d MMMM y H:mm")}
-                status={item.status} />
+              return (
+                <DaftarPesanan
+                  key={i}
+                  title={item.ship}
+                  route={item.port + ' - ' + item.next_port}
+                  date={format(date, "d MMMM y H:mm")}
+                  status={item.status}
+                  onPress={() => navigation.navigate('Rincian Pesanan', {
+                    'code': item.ticket_code,
+                  })} />
+              )
             })
             :
             (

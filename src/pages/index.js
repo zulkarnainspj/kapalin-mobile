@@ -7,5 +7,6 @@ import Login from './Login';
 import Register from './Register';
 import Pesan from './Pesan';
 import DataPenumpang from './DataPenumpang';
+import DetailPesanan from "./DetailPesanan";
 
-export { Splash, Beranda, Pesanan, Akun, Jadwal, Login, Register, Pesan, DataPenumpang}
+export { Splash, Beranda, Pesanan, Akun, Jadwal, Login, Register, Pesan, DataPenumpang, DetailPesanan}
