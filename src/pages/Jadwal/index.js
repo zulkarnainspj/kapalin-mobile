@@ -13,7 +13,7 @@ const Schedule = ({ route, navigation }, props) => {
     const [auth, setAuth] = useState(false);
     const [userName, setUserName] = useState(null);
     const [userEmail, setUserEmail] = useState(null);
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState();
 
     const getData = async () => {
         try {
@@ -70,13 +70,8 @@ const Schedule = ({ route, navigation }, props) => {
         getToken();
     }, [])
 
-    useEffect(() => {
-        if (auth == true){
-            checkAuth();
-        }
-    }, [token])
-
     const Orders = (routes, date, ship, scheduleID) => {
+        checkAuth();
         if (!auth) {
             ToastAndroid.show("Kamu belum Login!", ToastAndroid.SHORT);
         } else {

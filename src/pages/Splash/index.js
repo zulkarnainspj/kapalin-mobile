@@ -1,6 +1,5 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect } from 'react'
-import { kapalinLogo } from '../../assets/img';
 
 const Splash = ( { navigation }) => {
   useEffect(() => {
@@ -12,14 +11,12 @@ const Splash = ( { navigation }) => {
   return (
     <View style={styles.splash}>
       <View style={styles.titleView}>
-        {/* <Text style={styles.title}>KAPALIN</Text> */}
-        <Image style={{ height: 50 }} resizeMode="contain" source={kapalinLogo} />
+        <Text style={styles.title}>KAPALIN</Text>
         <Text style={styles.subtitle}>Rencanakan Perjalananmu Dengan Mudah</Text>
       </View>
 
       <View style={styles.appVerView}>
-        <Text style={styles.appVer}>V 1.0</Text>
-        <Text style={styles.cpry}>© 2023. By Zulkarnain</Text>
+        <Text style={styles.appVer}>V 1.0.0</Text>
       </View>
     </View>
   )
@@ -49,10 +46,6 @@ const styles = StyleSheet.create({
   },
   appVer: {
     position:'absolute',
-    bottom:60
-  },
-  cpry: {
-    position: 'absolute',
-    bottom: 35
+    bottom:35
   }
 })
