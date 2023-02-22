@@ -19,7 +19,9 @@ const Login = ({navigation}) => {
             if (result.status == 200){
                 AsyncStorage.setItem("userToken", result.data.token);
                 AsyncStorage.setItem("userName", result.data.user.name);
-                AsyncStorage.setItem("userEmail", result.data.user.email);                
+                AsyncStorage.setItem("userEmail", result.data.user.email);
+                var uid = ""+result.data.user.id;
+                AsyncStorage.setItem("userID", uid);                
                 navigation.replace('MainApp');
             }else{
                 alert(result.message);
