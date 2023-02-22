@@ -17,6 +17,12 @@ const DaftarPesanan = (props) => {
     } else if (props.status == "0") {
         ticket_status = "Batal";
         status_color = "#e74c3c";
+    } else if (props.status == "expired"){
+        ticket_status = "Kadaluarsa";
+        status_color = "#e74c3c";
+    } else if (props.status == "pending") {
+        ticket_status = "Pending";
+        status_color = "#2d3436";
     }
   return (
       <TouchableOpacity style={styles.item} onPress={props.onPress}>

@@ -33,6 +33,7 @@ const Pesanan = ({ navigation }) => {
       if (error.response.status == "401") {
         setAuth(false);
       } else {
+        console.log(error)
         ToastAndroid.show("Terjadi kesalahan saat mencoba terhubung ke Server", ToastAndroid.SHORT);
       }
     }
@@ -55,6 +56,21 @@ const Pesanan = ({ navigation }) => {
 
   }, [isFocused])
 
+
+  const detail = (ticket_code, status) => {
+    if (status == 'expired') {
+      ToastAndroid.show("Pesanan sudah kadaluarsa!", ToastAndroid.SHORT);
+    } else if (status == '0') {
+      ToastAndroid.show("Pesanan dibatalkan!", ToastAndroid.SHORT);
+    } else if (status == 'pending'){
+      ToastAndroid.show("Penjualan tiket di nonaktifkan oleh petugas!", ToastAndroid.SHORT);
+    } else {
+      navigation.navigate('Rincian Pesanan', {
+        'code': ticket_code,
+      })
+    }
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Pesanan</Text>
@@ -64,6 +80,17 @@ const Pesanan = ({ navigation }) => {
           auth ?
             data && data.map((item, i) => {
               var date = new Date(item.created_at);
+              var etd = new Date(item.etd)
+              var new_date = new Date();
+              var status = item.status;
+              if (item.pending == "0"){
+                if (new_date > etd && status != "3" && status != "0") {
+                  status = 'expired';
+                }
+              }else{
+                status = 'pending';
+              }
+              
 
               return (
                 <DaftarPesanan
@@ -71,10 +98,8 @@ const Pesanan = ({ navigation }) => {
                   title={item.ship}
                   route={item.port + ' - ' + item.next_port}
                   date={format(date, "d MMMM y H:mm")}
-                  status={item.status}
-                  onPress={() => navigation.navigate('Rincian Pesanan', {
-                    'code': item.ticket_code,
-                  })} />
+                  status={status}
+                  onPress={() => detail(item.ticket_code, status)} />
               )
             })
             :
