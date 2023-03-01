@@ -60,8 +60,6 @@ const Pesanan = ({ navigation }) => {
   const detail = (ticket_code, status) => {
     if (status == 'expired') {
       ToastAndroid.show("Pesanan sudah kadaluarsa!", ToastAndroid.SHORT);
-    } else if (status == '0') {
-      ToastAndroid.show("Pesanan dibatalkan!", ToastAndroid.SHORT);
     } else if (status == 'pending'){
       ToastAndroid.show("Penjualan tiket di nonaktifkan oleh petugas!", ToastAndroid.SHORT);
     } else {
@@ -84,7 +82,7 @@ const Pesanan = ({ navigation }) => {
               var new_date = new Date();
               var status = item.status;
               if (item.pending == "0"){
-                if (new_date > etd && status != "3" && status != "0") {
+                if (new_date > etd && status != "4" && status != "0") {
                   status = 'expired';
                 }
               }else{

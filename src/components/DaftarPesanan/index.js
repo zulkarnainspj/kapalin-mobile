@@ -12,6 +12,9 @@ const DaftarPesanan = (props) => {
         ticket_status = "Checkin";
         status_color = "#f39c12";
     } else if (props.status == "3") {
+        ticket_status = "Pembayaran";
+        status_color = "#fdcb6e";
+    } else if (props.status == "4") {
         ticket_status = "Selesai";
         status_color = "#2ecc71";
     } else if (props.status == "0") {
@@ -32,7 +35,6 @@ const DaftarPesanan = (props) => {
               <Text style={styles.date}>{props.date}</Text>
           </View>
           <View style={{ padding: 10, borderRadius: 20, height: 40, backgroundColor: status_color, marginTop: 7 }}>
-
                 <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#f5f6fa' }}>{ticket_status}</Text>
           </View>
       </TouchableOpacity>

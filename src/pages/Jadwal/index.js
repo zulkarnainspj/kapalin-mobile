@@ -108,6 +108,7 @@ const Schedule = ({ route, navigation }, props) => {
                         title={item.route.port.name + ' - ' + item.route.next_port.name}
                         date={format(date, "d MMMM y H:mm")}
                         price={item.price}
+                        kelas={item.kelas}
                         onPress={() => Orders(item.route.port.name + ' - ' + item.route.next_port.name, format(date, "d MMMM y H:mm"), route.params.shipName, item.id)}
                     />
                 })}

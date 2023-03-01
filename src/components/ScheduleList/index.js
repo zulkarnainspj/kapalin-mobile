@@ -27,7 +27,7 @@ const ScheduleList = (props) => {
               <View style={{ marginLeft: 8, flex:1}}>
                   <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{props.title}</Text>
                   <Text style={{ fontSize: 15, marginTop: 5 }}>{props.date}</Text>
-                  <Text style={{ fontSize: 15, fontWeight:'bold', marginTop: 5 }}>{formatRupiah(props.price, "Rp. ")}/orang</Text>
+                  <Text style={{ fontSize: 15, fontWeight: 'bold', marginTop: 5 }}>{formatRupiah(props.price, "Rp. ")}/orang ({props.kelas})</Text>
 
                   <View style={{ backgroundColor: '#636e72', padding: 10, marginTop: 10, alignItems: 'center' }}>
                       <Text style={{ color: '#f5f6fa', fontSize: 15 }}>Pesan Tiket</Text>
